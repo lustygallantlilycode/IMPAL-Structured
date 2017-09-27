@@ -55,13 +55,13 @@ uses crt;
         end;
 
         procedure profilSeller();
-
         begin
             writeln('Kode Seller/Toko : ',Seller[idxSeller].KodeUser);
             writeln('Nama Seller/Toko : ',Seller[idxSeller].NamaUser);
             writeln('Password : ',Seller[idxSeller].Password);
             writeln('NoHP Seller : ',Seller[idxSeller].NoHP);
             writeln('Email : ',Seller[idxSeller].Email);
+            readln;
         end;
 
         procedure pendataanBuyer();
@@ -211,36 +211,43 @@ uses crt;
        var
             pil,pil2,pil3:integer;
        begin
+           clrscr;
            writeln('SELAMAT DATANG DI TOKO ONLINE MAMPIRDULU');
            writeln('1. Registrasi');
            writeln('2. Login');
            writeln('3. keluar');
+           writeln;
            write('Pilihan: ');readln(pil);
-           while (pil<>0) do
+           if (pil<>0) then
            begin
                if (pil = 1) then
                    begin
+                       writeln;
                        writeln('1. Registrasi Seller');
                        writeln('2. Registrasi Buyer');
                        writeln('3. Kembali');
+                       writeln;
                        write('Pilihan: ');readln(pil2);
-                       while (pil2<>0) do
+                       if (pil2<>0) then
                        begin
                            case pil2 of
                                1:
                                   begin
+                                      clrscr;
                                       writeln('Isi Data Seller');
                                       pendataanSeller();
                                       Menu();
                                   end;
                                2:
                                begin
+                                   clrscr;
                                    writeln('Isi Data Buyer');
                                    pendataanBuyer();
                                    Menu();
                                end;
                                3:
                                begin
+                                   clrscr;
                                    Menu();
                                end;
                        end;
@@ -250,36 +257,43 @@ uses crt;
                    begin
                      if(Login) then
                      begin
-                         if(cekLoginSeller) then
+                         while (cekLoginSeller = true) do
                              begin
+                                 clrscr;
                                  writeln('1. Lihat Profil');
                                  writeln('2. Upload Barang');
                                  writeln('3. Logout');
+                                 writeln;
                                  write('Pilihan: ');readln(pil3);
-                                 while (pil3<>3) do
-                                     begin
+                                // if (pil3<>3) then
+                                   //  begin
                                          case pil3 of
                                              1: begin
+                                             clrscr;
                                              profilSeller();
                                          end;
                                              2: begin
+                                             clrscr;
                                              tambahBarang(dtBarang,idxBarang);
                                              Menu();
                                          end;
                                              3: begin
+                                             cekLoginSeller:= false;
                                              Menu();
                                          end;
-                                     end;
-                                     end;
+                                    // end;
+
+                                 end;
                              end
-                         else
+                       (*  else
                                  begin
                                      writeln('1. Lihat Barang');
                                      writeln('2. Beli Barang');
                                      writeln('3. Bayar');
                                      writeln('4. Logout');
+                                     writeln;
                                      write('Pilihan: ');readln(pil3);
-                                     while (pil3<>0) do
+                                     if (pil3<>0) then
                                      begin
                                          case pil3 of
                                              1:begin
@@ -292,26 +306,22 @@ uses crt;
 
                                      end;
                                      end;
-                                 end;
+                                 end;*)
                              end
                          else writeln('Silahkan login dulu');
 
                          end
-               else
+               else if(pil=3) then
                            begin
                                writeln('terima kasih');
-                               readln;
+                               exit;
                            end;
            end;
        end;
 
        begin
        clrscr;
-           cekLoginBuyer  := false;
-           cekLoginSeller := false;
-           pendataanSeller();
-           profilSeller();
-
+           Menu();
 
         readln;
     end.
